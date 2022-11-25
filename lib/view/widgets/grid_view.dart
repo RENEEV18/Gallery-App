@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gallery_app/controller/image_provider.dart';
+import 'package:gallery_app/view/image_view_screen/image_view_screen.dart';
 import 'package:provider/provider.dart';
 
 class GridviewCustom extends StatelessWidget {
-  const GridviewCustom({super.key, required this.color});
-  final Color color;
-
+  const GridviewCustom({super.key});
+  
+  
   @override
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,9 @@ class GridviewCustom extends StatelessWidget {
       builder: (context, value, child) {
         return value.isLoading
             ? const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
               )
             : GridView.builder(
                 shrinkWrap: true,
@@ -26,13 +29,19 @@ class GridviewCustom extends StatelessWidget {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                 ),
-                itemCount: value.images?.photos?.length ,
+                itemCount: value.images?.photos?.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    // color: color,
-                    child: Image.network(
-                      value.images?.photos![index].src?.medium ?? "",
-                      fit: BoxFit.fill,
+                  return InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                        return   ImageViewScreen(image: Image.network(value.images?.photos![index].src?.large2X?? '',fit: BoxFit.cover,));
+                      },),);
+                    },
+                    child: Card(
+                      child: Image.network(
+                        value.images?.photos![index].src?.medium ?? "",
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   );
                 });

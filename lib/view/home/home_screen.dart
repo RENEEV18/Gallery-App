@@ -4,7 +4,9 @@ import 'package:gallery_app/core/const.dart';
 import 'package:gallery_app/view/widgets/grid_view.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
+
+  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +16,13 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          title: const CupertinoSearchTextField(
+          title: CupertinoSearchTextField(
+            controller: searchController,
             suffixIcon: kSearchIcon,
             placeholder: 'Search Keywords',
+            
             suffixMode: OverlayVisibilityMode.always,
-            prefixIcon: SizedBox(
+            prefixIcon: const SizedBox(
               width: 10,
             ),
           ),
@@ -44,21 +48,11 @@ class HomeScreen extends StatelessWidget {
               ]),
         ),
         body: const TabBarView(children: [
-          GridviewCustom(
-            color: Colors.black,
-          ),
-          GridviewCustom(
-            color: Colors.yellow,
-          ),
-          GridviewCustom(
-            color: Colors.red,
-          ),
-          GridviewCustom(
-            color: Colors.blue,
-          ),
-          GridviewCustom(
-            color: Colors.green,
-          ),
+          GridviewCustom(),
+          GridviewCustom(),
+          GridviewCustom(),
+          GridviewCustom(),
+          GridviewCustom(),
         ]),
       ),
     );
